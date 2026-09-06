@@ -31,10 +31,8 @@ if (form) {
         const message = document.getElementById("message").value.trim();
 
         if (name === "" || email === "" || message === "") {
-
             alert("Please fill in all the fields.");
             return;
-
         }
 
         alert(
@@ -70,13 +68,13 @@ window.addEventListener("scroll", function () {
 
     navLinks.forEach(function (link) {
 
-        link.style.textDecoration = "none";
+        link.classList.remove("active");
 
         if (
             link.getAttribute("href") ===
             "#" + currentSection
         ) {
-            link.style.textDecoration = "underline";
+            link.classList.add("active");
         }
 
     });
@@ -95,10 +93,10 @@ const revealObserver = new IntersectionObserver(
 
             if (entry.isIntersecting) {
 
-                entry.target.classList.add("show");
+                // CSS expects "visible"
+                entry.target.classList.add("visible");
 
                 revealObserver.unobserve(entry.target);
-
             }
 
         });
