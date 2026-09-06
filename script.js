@@ -50,7 +50,7 @@ if (form) {
 // ================= ACTIVE NAVIGATION =================
 
 const sections = document.querySelectorAll("section[id]");
-const navLinks = document.querySelectorAll("nav a");
+const navLinkItems = document.querySelectorAll("nav a");
 
 window.addEventListener("scroll", function () {
 
@@ -66,7 +66,7 @@ window.addEventListener("scroll", function () {
 
     });
 
-    navLinks.forEach(function (link) {
+    navLinkItems.forEach(function (link) {
 
         link.classList.remove("active");
 
@@ -93,7 +93,6 @@ const revealObserver = new IntersectionObserver(
 
             if (entry.isIntersecting) {
 
-                // CSS expects "visible"
                 entry.target.classList.add("visible");
 
                 revealObserver.unobserve(entry.target);
@@ -110,3 +109,42 @@ const revealObserver = new IntersectionObserver(
 revealElements.forEach(function (element) {
     revealObserver.observe(element);
 });
+
+
+// ================= MOBILE MENU =================
+
+const menuButton = document.getElementById("menuButton");
+const navLinks = document.getElementById("navLinks");
+
+if (menuButton && navLinks) {
+
+    menuButton.addEventListener("click", function () {
+
+        navLinks.classList.toggle("open");
+
+        const isOpen = navLinks.classList.contains("open");
+
+        menuButton.setAttribute("aria-expanded", isOpen);
+
+        menuButton.textContent = isOpen ? "✕" : "☰";
+
+    });
+
+
+    // Close menu after clicking a navigation link
+
+    navLinks.querySelectorAll("a").forEach(function (link) {
+
+        link.addEventListener("click", function () {
+
+            navLinks.classList.remove("open");
+
+            menuButton.setAttribute("aria-expanded", "false");
+
+            menuButton.textContent = "☰";
+
+        });
+
+    });
+
+}
